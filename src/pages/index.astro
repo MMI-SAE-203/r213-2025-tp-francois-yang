@@ -1,5 +1,7 @@
 ---
 import Header from "../components/Header.astro";
+import Base from '../layout/Base.astro';
+
 ---
 
 <html lang="en">
@@ -10,8 +12,9 @@ import Header from "../components/Header.astro";
 		<meta name="generator" content={Astro.generator} />
 		<title>Page accueil</title>
 	</head>
-	<body>
-		<Header />
-		<h1>Accueil</h1>
-	</body>
+
+<Base titre="Accueil">
+    <h1>Bienvenu sur la page d'accueil</h1> 
+</Base>
+
 </html>
