@@ -1,0 +1,17 @@
+---
+const { adresse, favori, id, nbChambres, nbSdb, nomMaison, prix, surface, imgUrl } = Astro.props;
+---
+
+    <ul>
+        <li>{adresse}</li>
+        <li>{favori}</li>
+        <li>{id}</li>
+        <li>{nbChambres}</li>
+        <li>{nbSdb}</li>
+        <li>{nomMaison}</li>
+        <li>{prix} €</li>
+        <li>{surface} m²</li>
+        <img src={imgUrl} alt={nomMaison} />
+    </ul>
+    <hr />
+</div>

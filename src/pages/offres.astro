@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Base from "../layout/Base.astro";
+import Card from "../components/Card.astro";
 
 const offres = [
     {
@@ -42,23 +43,20 @@ const offres = [
 <Base titre="Offres">
     <h1>Vous trouverez vos offres</h1>
 
-    <div>
-        {
-            offres.map((offre) => (
-                <div>
-                    <ul>
-                        <li>{offre.adresse}</li>
-                        <li>{offre.favori}</li>
-                        <li>{offre.id}</li>
-                        <li>{offre.nbChambres} chambres</li>
-                        <li>{offre.nbSdb} salles de bain</li>
-                        <li>{offre.nomMaison}</li>
-                        <li>{offre.prix} €</li>
-                        <li>{offre.surface} m²</li>
-                        <img src={offre.imgUrl} alt={offre.nomMaison} />
-                    </ul>
-                </div>
-            ))
-        }
+<div x-data="{ showFavorites: false }">
+    <button @click="showFavorites = !showFavorites">
+        <span x-show="!showFavorites">Afficher les favoris</span>
+        <span x-show="showFavorites">Afficher tout</span>
+    </button>
+
+    <div x-show="!showFavorites">
+        {offres.map((offre) => <Card {...offre} />)}
+
+    </div>
+    <div x-show="showFavorites">
+        {offres.map((offre) => offre.favori && <Card {...offre} />)}
+    </div>
+</div>
+
     </div>
 </Base>
