@@ -1,16 +1,9 @@
 ---
-const { adresse, favori, id, nbChambres, nbSdb, nomMaison, prix, surface, imgUrl } = Astro.props;
+const { ...event} = Astro.props;
 ---
 
-<ul>
-    <li>{adresse}</li>
-    <li>{favori}</li>
-    <li>{id}</li>
-    <li>{nbChambres}</li>
-    <li>{nbSdb}</li>
-    <li>{nomMaison}</li>
-    <li>{prix} €</li>
-    <li>{surface} m²</li>
-    <img src={imgUrl} alt={nomMaison} />
-</ul>
-<hr />
+<div x-data=`{favori: false}` class="mt-10 border" :class="{'bg-yellow-100': favori}"> <!-- favori est  -->
+    <h2>{event.nom_maison}</h2>
+    <img src={event.img} alt={event.imgAlt} class="w-64 h-64 object-cover" />
+
+</div>
