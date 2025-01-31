@@ -4,26 +4,55 @@ import Base from "../layout/Base.astro";
 import Card from "../components/Card.astro";
 
 import { getOffres } from "../js/backend.mjs";
-const offres = await getOffres();
+export const offres = await getOffres();
 ---
 
 <Base titre="Offres">
     <h1>Vous trouverez vos offres</h1>
 
-<div x-data="{ showFavorites: false }" >
-    <button @click="showFavorites = !showFavorites" >
-        <span x-show="!showFavorites">Afficher les favoris</span>
-        <span x-show="showFavorites">Afficher tout</span>
-    </button>
-
-    <div x-show="!showFavorites">
-        {offres.map((offre) => <Card {...offre} />)}
-
-    </div>
-    <div x-show="showFavorites" class="bg-yellow-400 text-black">
-        {offres.map((offre) => offre.favori && <Card {...offre} />)}
-    </div>
-</div>
-
+    <div x-data="{ showFavorites: false, viewMode: 'grid' }">
+        <button
+            @click="showFavorites = !showFavorites"
+            class="border border-blue-500 bg-blue-50 hover:bg-blue-100 hover:text-black rounded-md"
+        >
+            <span x-show="!showFavorites">Afficher les favoris</span>
+            <span x-show="showFavorites">Afficher tout</span>
+        </button>
+        <button
+            @click="viewMode = 'grid'"
+            class="border border-blue-500 bg-blue-50 hover:bg-blue-100 hover:text-black rounded-md"
+        >
+            Afficher en grille
+        </button>
+        <button
+            @click="viewMode = 'list'"
+            class="border border-blue-500 bg-blue-50 hover:bg-blue-100 hover:text-black rounded-md"
+        >
+            Afficher en liste
+        </button>
+        <div
+            x-show="!showFavorites && viewMode === 'grid'"
+            class="grid grid-cols-3 gap-4"
+        >
+            {offres.map((offre) => <Card {...offre} />)}
+        </div>
+        <div
+            x-show="!showFavorites && viewMode === 'list'"
+            class="flex flex-col gap-4"
+        >
+            {offres.map((offre) => <Card {...offre} />)}
+        </div>
+        <div
+            x-show="showFavorites && viewMode === 'list'"
+            class="flex flex-col gap-4"
+        >
+            {offres.map((offre) => offre.favori && <Card {...offre} />)}
+        </div>
+        <div
+            x-show="showFavorites && viewMode === 'grid'"
+            class="grid grid-cols-3 gap-4"
+        >
+            {offres.map((offre) => offre.favori && <Card {...offre} />)}
+        </div>
     </div>
 </Base>

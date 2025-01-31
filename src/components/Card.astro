@@ -1,9 +1,23 @@
 ---
-const { ...event} = Astro.props;
+const { ...offre } = Astro.props;
 ---
 
-<div x-data=`{favori: false}` class="mt-10 border" :class="{'bg-yellow-100': favori}"> <!-- favori est  -->
-    <h2>{event.nom_maison}</h2>
-    <img src={event.img} alt={event.imgAlt} class="w-64 h-64 object-cover" />
+<div
+    x-data="{ favori: false, description: 'default', viewMode: 'grid' }"
+    class="mt-10 border"
+    :class="{'bg-yellow-50': favori}"
+>
+    <h2>{offre.nom_maison}</h2>
+    <img src={offre.img} alt={offre.imgAlt} class="w-64 h-64 object-cover" />
 
+    <div class="mt-4 text-center">
+        <button @click="favori = !favori" class="text-center mr-2 mb-2 p-2 border border-blue-500 bg-blue-50 hover:bg-blue-100 hover:text-black rounded-md">Favori</button>
+        <button @click="description = 'description1'" class="mr-2"
+            >Description</button
+        >
+    </div>
+
+    <div x-show="description === 'description1'" class="mt-4">
+        <p>Description de la maison...</p>
+    </div>
 </div>
