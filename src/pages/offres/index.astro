@@ -1,9 +1,9 @@
 ---
-import Header from "../components/Header.astro";
-import Base from "../layout/Base.astro";
-import Card from "../components/Card.astro";
+import Header from "../../components/Header.astro";
+import Base from "../../layout/Base.astro";
+import Card from "../../components/Card.astro";
 
-import { getOffres } from "../js/backend.mjs";
+import { getOffres } from "../../js/backend.mjs";
 export const offres = await getOffres();
 ---
 
@@ -32,25 +32,25 @@ export const offres = await getOffres();
         </button>
         <div
             x-show="!showFavorites && viewMode === 'grid'"
-            class="grid grid-cols-3 gap-4"
+            class="grid grid-cols-3 gap-4 justify-items-center"
         >
             {offres.map((offre) => <Card {...offre} />)}
         </div>
         <div
             x-show="!showFavorites && viewMode === 'list'"
-            class="flex flex-col gap-4"
+            class="flex flex-col gap-4 justify-items-center"
         >
             {offres.map((offre) => <Card {...offre} />)}
         </div>
         <div
             x-show="showFavorites && viewMode === 'list'"
-            class="flex flex-col gap-4"
+            class="flex flex-col gap-4 justify-items-center"
         >
             {offres.map((offre) => offre.favori && <Card {...offre} />)}
         </div>
         <div
             x-show="showFavorites && viewMode === 'grid'"
-            class="grid grid-cols-3 gap-4"
+            class="grid grid-cols-3 gap-4 justify-items-center"
         >
             {offres.map((offre) => offre.favori && <Card {...offre} />)}
         </div>
