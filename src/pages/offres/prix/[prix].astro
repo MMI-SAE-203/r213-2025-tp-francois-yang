@@ -1,17 +1,17 @@
 ---
-import { getOffreByPrice } from "../../../js/backend.mjs";
+import { getOffreByPriceRange } from "../../../js/backend.mjs";
 import Card from "../../../components/Card.astro";
 import Base from "../../../layout/Base.astro";
 
-const { prix } = Astro.params;
-const offres = await getOffreByPrice(prix);
-console.log(offres);
+const { minPrix, maxPrix } = Astro.params;
+const offresRange = await getOffreByPriceRange(0, 200000);
+console.log(offresRange);
 
 ---
 <Base>
-    <h1>Offres pour un prix inférieur à {prix} euros</h1>
+    <h1>Offres pour un prix compris entre {minPrix} et {maxPrix} euros</h1>
     <div>
-        {offres.map(offre => (
+        {offresRange.map(offre => (
             <Card {...offre} />
             <ul>
             <li>Adresse : {offre?.adresse}</li>
@@ -19,5 +19,6 @@ console.log(offres);
             <li>Nombre de chambre : {offre?.nombre_chambre}</li>
         </ul>
         ))}
+
     </div>
 </Base></div>

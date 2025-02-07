@@ -40,7 +40,7 @@ export async function getOffreBySurface(surface) {
         });
         return dataSurface;
     } catch (error) {
-        console.log('Une erreur est survenue en lisant la liste des maisons', error);
+        console.log('Une erreur est survenue en lisant la liste des surfaces', error);
         return [];
     }
 }
@@ -57,7 +57,25 @@ export async function getOffreByPrice(prix) {
         });	
         return dataPrice;
     } catch(error){
-        console.log('Une erreur est survenue en lisant la liste des maisons', error);
+        console.log('Une erreur est survenue en lisant la liste des prix', error);
         return [];
     }
+}
+
+export async function getOffreByPriceRange(minPrix, maxPrix) {
+    try {
+        let dataPriceRange = await pb.collection('Maison').getFullList({
+            filter: `prix > ${minPrix} && prix < ${maxPrix}`,
+            sort: 'prix',
+        });
+        dataPriceRange = dataPriceRange.map((dataByPriceRange) => {
+            dataByPriceRange.img = pb.files.getURL(dataByPriceRange, dataByPriceRange.images);
+            return dataByPriceRange;
+        });
+        return dataPriceRange;
+    }
+catch (error) {
+    console.log('Une erreur est survenue en lisant la liste des prix', error);
+    return [];
+}
 }
