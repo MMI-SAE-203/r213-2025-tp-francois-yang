@@ -48,7 +48,7 @@ export async function getOffreBySurface(surface) {
 export async function getOffreByPrice(prix) {
     try{
         let dataPrice = await pb.collection('Maison').getFullList({
-            filter: `prix > ${prix}`,
+            filter: `prix < ${prix}`,
             sort: 'prix',
         });
         dataPrice = dataPrice.map((dataByPrice) => {
