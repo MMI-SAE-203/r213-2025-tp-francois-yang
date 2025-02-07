@@ -7,10 +7,10 @@ const offre = await getOffreID(id);
 ---
 
 <Base titre={offre?.nom_maison}>
-    <h2>{offre?.nom_maison}</offre>
-    <ul>
-        <li>{offre?.adresse}</li>
-        <li>{offre?.prix}</li>
-        <li>{offre?.nombre_chambre}</li>
-    </ul>
+    <h2>Nom de la maison : {offre?.nom_maison}</h2>
+        <ul>
+            <li>Adresse : {offre?.adresse}</li>
+            <li>Prix de la maison : {offre?.prix}</li>
+            <li>Nombre de chambre : {offre?.nombre_chambre}</li>
+        </ul>
 </Base>
