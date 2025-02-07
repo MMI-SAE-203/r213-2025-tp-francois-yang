@@ -15,6 +15,7 @@ const { ...offre } = Astro.props;
         <button @click="description = 'description1'" class="mr-2"
             >Description</button
         >
+        <a href={`/offres/${offre.id}`}>Voir plus</a>
     </div>
 
     <div x-show="description === 'description1'" class="mt-4">
