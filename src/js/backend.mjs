@@ -44,3 +44,20 @@ export async function getOffreBySurface(surface) {
         return [];
     }
 }
+
+export async function getOffreByPrice(prix) {
+    try{
+        let dataPrice = await pb.collection('Maison').getFullList({
+            filter: `prix > ${prix}`,
+            sort: 'prix',
+        });
+        dataPrice = dataPrice.map((dataByPrice) => {
+            dataByPrice.img = pb.files.getURL(dataByPrice, dataByPrice.images);
+            return dataByPrice;
+        });	
+        return dataPrice;
+    } catch(error){
+        console.log('Une erreur est survenue en lisant la liste des maisons', error);
+        return [];
+    }
+}
