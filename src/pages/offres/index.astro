@@ -3,9 +3,30 @@ import Base from "../../layout/Base.astro";
 import Card from "../../components/Card.astro";
 import { getOffres } from "../../js/backend.mjs";
 import { getOffreBySurface } from "../../js/backend.mjs";
+import { filterByPrix } from "../../js/backend.mjs";
 
-export const offres = await getOffres();
 export const surface = await getOffreBySurface();
+
+let message = '';
+let offres = [];
+if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData();
+    const minPrix = parseInt(data.get("minPrix"));
+    const maxPrix = parseInt(data.get("maxPrix"));
+
+    if (minPrix >= 0 && maxPrix >= 0 && maxPrix >= minPrix) {
+        offres = await filterByPrix(minPrix, maxPrix);
+        if (offres.length === 0) {
+            message = `Pas d'offres entre ${minPrix}€ et ${maxPrix}€`;
+        } else {
+            message = `Liste des offres entre ${minPrix}€ et ${maxPrix}€`;
+        }
+    } else {
+        message = "Veuillez entrer des valeurs valides pour le prix.";
+    }
+} else {
+    offres = await getOffres();
+}
 ---
 
 <Base titre="Offres">
@@ -15,6 +36,12 @@ export const surface = await getOffreBySurface();
     <a href="/offres/surface/80" class="text-blue-500 hover:text-blue-700">Voir les surfaces superieurs à 80m²</a>
     <a href="/offres/prix/100000and2000000" class="text-blue-500 hover:text-blue-700">Voir les prix compris entre 100 000 et 200 000</a>
     <div x-data="{ showFavorites: false, viewMode: 'grid' }">
+        <form action="/offres" method="POST">
+            <input type="number" name="minPrix" placeholder="Prix minimum" />
+            <input type="number" name="maxPrix" placeholder="Prix maximum" />
+            <input type="submit" value="Filtrer par prix" />
+        </form>
+        
         <button
             @click="showFavorites = !showFavorites"
             class="border border-blue-500 bg-blue-50 hover:bg-blue-100 hover:text-black rounded-md"

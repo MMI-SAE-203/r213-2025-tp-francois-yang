@@ -96,3 +96,20 @@ export async function addOffre(offre) {
         }
     }
 }
+
+export async function filterByPrix(minPrix, maxPrix){
+    try {
+        let dataPrix = await pb.collection('Maison').getFullList({
+            filter: `prix >= ${minPrix} && prix <= ${maxPrix}`,
+            sort: 'prix',
+        });
+        dataPrix = dataPrix.map((dataByPrix) => {
+            dataByPrix.img = pb.files.getURL(dataByPrix, dataByPrix.images);
+            return dataByPrix;
+        });
+        return dataPrix;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la liste des prix', error);
+        return [];
+    }
+}
