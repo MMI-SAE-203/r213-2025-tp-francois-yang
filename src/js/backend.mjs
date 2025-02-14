@@ -79,3 +79,20 @@ catch (error) {
     return [];
 }
 }
+
+export async function addOffre(offre) {
+    try {
+        let createOffre = await pb.collection('Maison').create(offre);
+        return {
+            success : true,
+            message : 'Offre ajoutée avec succès',
+        };
+        }
+    catch (error) {
+        console.log('Une erreur est survenue en ajoutant la maison', error);
+        return {
+            success :false,
+            message : 'Une erreur est survenue en ajoutant la maison',
+        }
+    }
+}

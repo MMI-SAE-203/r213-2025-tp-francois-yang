@@ -9,9 +9,11 @@ export const surface = await getOffreBySurface();
 ---
 
 <Base titre="Offres">
+    <a href="/offres/add" class="text-blue-500 hover:text-blue-700">Ajouter une offre</a>
     <h1>Vous trouverez vos offres</h1>
-    <a href="/offres/surface/80">Voir les surfaces superieurs à 80m²</a>
-    <a href="/offres/prix/100000and2000000">Voir les prix compris entre 100 000 et 200 000</a>
+
+    <a href="/offres/surface/80" class="text-blue-500 hover:text-blue-700">Voir les surfaces superieurs à 80m²</a>
+    <a href="/offres/prix/100000and2000000" class="text-blue-500 hover:text-blue-700">Voir les prix compris entre 100 000 et 200 000</a>
     <div x-data="{ showFavorites: false, viewMode: 'grid' }">
         <button
             @click="showFavorites = !showFavorites"
